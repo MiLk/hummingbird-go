@@ -13,17 +13,10 @@ type API struct {
 }
 
 func (api *API) UserAuthenticate(username, email, password string) (errs []error, body string) {
-
-	type UserAuthenticateData struct {
-		Username string `json:"username,omitempty"`
-		Email    string `json:"email,omitempty"`
-		Password string `json:"password"`
-	}
-
-	data := UserAuthenticateData{
-		Username: username,
-		Email:    email,
-		Password: password,
+	data := map[string]string{
+		"username": username,
+		"email":    email,
+		"password": password,
 	}
 	_, body, errs = api.request.
 		Post(api.endpoint + "/v1/users/authenticate").
