@@ -33,6 +33,14 @@ func main() {
 			return
 		}
 		fmt.Printf("user: %+v", user)
+
+		errs, library := api.Library(*username, "")
+		if len(errs) != 0 {
+			printErrors(errs)
+			return
+		}
+		fmt.Printf("library: %+v", library)
+
 	}
 
 	app.Run(os.Args)

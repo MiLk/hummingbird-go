@@ -12,6 +12,25 @@ type API struct {
 	request  *gorequest.SuperAgent
 }
 
+func (api *API) Library(username, status string) (errs []error, library []LibraryEntry) {
+	url := api.endpoint + "/v1/users/" + username + "/library"
+	if len(status) > 0 {
+		url += "?status=" + url
+	}
+	_, body, errs := api.request.
+		Get(url).
+		End()
+	if len(errs) != 0 {
+		return
+	}
+
+	err := json.Unmarshal([]byte(body), &library)
+	if err != nil {
+		errs = append(errs, err)
+	}
+	return
+}
+
 func (api *API) UserAuthenticate(username, email, password string) (errs []error, body string) {
 	data := map[string]string{
 		"username": username,

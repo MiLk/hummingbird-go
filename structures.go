@@ -1,5 +1,20 @@
 package hummingbird
 
+type LibraryEntry struct {
+	Id               uint64
+	Episodes_watched uint64
+	Last_watched     string
+	Updated_at       string
+	Rewatched_times  uint64
+	Notes            string
+	Notes_present    bool
+	Status           string
+	Private          bool
+	Rewatching       bool
+	//Anime Anime
+	//Rating Rating
+}
+
 type Favorite struct {
 	Id         uint64
 	User_id    uint64
