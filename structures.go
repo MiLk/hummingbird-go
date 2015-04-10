@@ -1,5 +1,28 @@
 package hummingbird
 
+type Anime struct {
+	Id               uint64
+	Slug             string
+	Status           string
+	Url              string
+	Title            string
+	Alternate_title  string
+	Episode_count    uint64
+	Episode_length   uint64
+	Cover_image      string
+	Synopsis         string
+	Show_type        string
+	Started_airing   string
+	Finished_airing  string
+	Community_rating float64
+	Age_rating       string
+	Genres           []Genre `json:",omitempty"`
+}
+
+type Genre struct {
+	Name string
+}
+
 type LibraryEntry struct {
 	Id               uint64
 	Episodes_watched uint64
@@ -11,8 +34,13 @@ type LibraryEntry struct {
 	Status           string
 	Private          bool
 	Rewatching       bool
-	//Anime Anime
-	//Rating Rating
+	Anime            Anime
+	Rating           LibraryEntryRating
+}
+
+type LibraryEntryRating struct {
+	Type  string
+	Value string
 }
 
 type Favorite struct {
