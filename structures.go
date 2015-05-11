@@ -1,5 +1,6 @@
 package hummingbird
 
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Structures#anime-object
 type Anime struct {
 	Id               uint64
 	Slug             string
@@ -23,6 +24,7 @@ type Genre struct {
 	Name string
 }
 
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Structures#library-entry-object
 type LibraryEntry struct {
 	Id               uint64
 	Episodes_watched uint64
@@ -38,11 +40,13 @@ type LibraryEntry struct {
 	Rating           LibraryEntryRating
 }
 
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Structures#library-entry-rating-object
 type LibraryEntryRating struct {
 	Type  string
 	Value string
 }
 
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Structures#favorite-object
 type Favorite struct {
 	Id         uint64
 	User_id    uint64
@@ -53,6 +57,7 @@ type Favorite struct {
 	fav_rank   uint64
 }
 
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Structures#user-object
 type User struct {
 	Name                      string
 	Waifu                     string

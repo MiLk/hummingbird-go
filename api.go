@@ -1,3 +1,4 @@
+// Package hummingbird is an API client for the https://hummingbird.me website.
 package hummingbird
 
 import (
@@ -7,12 +8,16 @@ import (
 	"github.com/parnurzeal/gorequest"
 )
 
+// API represents the API client
 type API struct {
 	endpoint string
 	token    string
 	request  *gorequest.SuperAgent
 }
 
+// Search allows you to search an anime by title.
+//
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Methods#anime--search-by-title
 func (api *API) Search(title string) (errs []error, results []Anime) {
 	_url := api.endpoint + "/v1/search/anime?query=" + url.QueryEscape(title)
 	_, body, errs := api.request.Get(_url).End()
@@ -27,6 +32,9 @@ func (api *API) Search(title string) (errs []error, results []Anime) {
 	return
 }
 
+// Library allows you to retrieve all the anime in the library of an user of the given type.
+//
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Methods#library--get-all-entries
 func (api *API) Library(username, status string) (errs []error, library []LibraryEntry) {
 	_url := api.endpoint + "/v1/users/" + url.QueryEscape(username) + "/library"
 	if len(status) > 0 {
@@ -44,6 +52,9 @@ func (api *API) Library(username, status string) (errs []error, library []Librar
 	return
 }
 
+// UserAuthenticate returns an user's authentication token if the credentials are correct.
+//
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Methods#user--authenticate
 func (api *API) UserAuthenticate(username, email, password string) (errs []error, body string) {
 	data := map[string]string{
 		"username": username,
@@ -60,6 +71,9 @@ func (api *API) UserAuthenticate(username, email, password string) (errs []error
 	return
 }
 
+// UserInformation allows you to retrieve all the informations about an user.
+//
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Methods#user--get-activity-feed
 func (api *API) UserInformation(username string) (errs []error, user User) {
 	_, body, errs := api.request.
 		Get(api.endpoint + "/v1/users/" + url.QueryEscape(username)).
@@ -75,6 +89,9 @@ func (api *API) UserInformation(username string) (errs []error, user User) {
 	return
 }
 
+// UserFavorites allows you to retrieve the favorite animes of a given user.
+//
+// https://github.com/hummingbird-me/hummingbird/wiki/API-v1-Methods#user--get-favorite-anime
 func (api *API) UserFavorites(username string) (errs []error, animes []Anime) {
 	_, body, errs := api.request.
 		Get(api.endpoint + "/v1/users/" + url.QueryEscape(username) + "/favorite_anime").
@@ -90,6 +107,7 @@ func (api *API) UserFavorites(username string) (errs []error, animes []Anime) {
 	return
 }
 
+// Instantiates the API and return a new API instance.
 func NewAPI() *API {
 	api := new(API)
 	api.endpoint = "https://hummingbird.me/api"
